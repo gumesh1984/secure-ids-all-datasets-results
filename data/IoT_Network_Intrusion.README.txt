@@ -1,0 +1,4 @@
+Obtain the IoT network-intrusion dataset from its original provider and place
+the CSV in the directory passed through --data-dir. Preserve the binary Label
+column. Retain Cat and Sub_Cat when available so attribute-inference evaluation
+can use a genuine detailed dataset attribute.

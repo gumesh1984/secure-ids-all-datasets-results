@@ -1,0 +1,17 @@
+dataset,variant,reconstruction_mae_vs_normalized_features,max_absolute_error
+cicids2017_binary_balanced,normalization_only,0.0,0.0
+cicids2017_binary_balanced,normalization_permutation,0.9858756065368652,12.32349967956543
+cicids2017_binary_balanced,aes_gcm_no_permutation,0.0,0.0
+cicids2017_binary_balanced,aes_gcm_with_permutation,0.0,0.0
+IoT Network Intrusion Dataset,normalization_only,0.0,0.0
+IoT Network Intrusion Dataset,normalization_permutation,0.7540546655654907,10.537522315979004
+IoT Network Intrusion Dataset,aes_gcm_no_permutation,0.0,0.0
+IoT Network Intrusion Dataset,aes_gcm_with_permutation,0.0,0.0
+NNSL-KDD,normalization_only,0.0,0.0
+NNSL-KDD,normalization_permutation,0.9683878421783447,26.67439842224121
+NNSL-KDD,aes_gcm_no_permutation,0.0,0.0
+NNSL-KDD,aes_gcm_with_permutation,0.0,0.0
+train_test_network,normalization_only,0.0,0.0
+train_test_network,normalization_permutation,0.8468027114868164,28.203516006469727
+train_test_network,aes_gcm_no_permutation,0.0,0.0
+train_test_network,aes_gcm_with_permutation,0.0,0.0

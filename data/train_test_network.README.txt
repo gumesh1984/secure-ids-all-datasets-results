@@ -1,0 +1,3 @@
+Place the prepared train_test_network CSV in the directory passed through
+--data-dir. Preserve the binary target column and retain the detailed type
+column when available for attribute-inference evaluation.

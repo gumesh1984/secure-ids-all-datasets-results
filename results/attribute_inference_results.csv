@@ -1,0 +1,21 @@
+dataset,seed,sensitive_attribute,sensitive_attribute_source,attacker_input,attacker_data_origin,attacker_train_samples,attacker_test_samples,sensitive_classes,attack_accuracy,attack_macro_f1,random_guessing_accuracy,majority_baseline_accuracy,status,reason
+IoT Network Intrusion Dataset,42,Sub_Cat,dataset_column,permuted_deep_feature_vector_only,held_out_target_test_only,12000.0,8000.0,9.0,0.6675,0.5633280263528895,0.1111111111111111,0.30875,evaluated,
+IoT Network Intrusion Dataset,43,Sub_Cat,dataset_column,permuted_deep_feature_vector_only,held_out_target_test_only,12000.0,8000.0,9.0,0.665875,0.5784779572583775,0.1111111111111111,0.306125,evaluated,
+IoT Network Intrusion Dataset,44,Sub_Cat,dataset_column,permuted_deep_feature_vector_only,held_out_target_test_only,12000.0,8000.0,9.0,0.6655,0.5677974672124129,0.1111111111111111,0.3045,evaluated,
+IoT Network Intrusion Dataset,45,Sub_Cat,dataset_column,permuted_deep_feature_vector_only,held_out_target_test_only,12000.0,8000.0,9.0,0.64125,0.5409293253176906,0.1111111111111111,0.308375,evaluated,
+IoT Network Intrusion Dataset,46,Sub_Cat,dataset_column,permuted_deep_feature_vector_only,held_out_target_test_only,12000.0,8000.0,9.0,0.67175,0.5736886918699386,0.1111111111111111,0.3095,evaluated,
+NNSL-KDD,42,41 (detailed pre-binary category),pre_binary_attack_category,permuted_deep_feature_vector_only,held_out_target_test_only,12000.0,8000.0,31.0,0.92375,0.5581633705737492,0.032258064516129,0.524,evaluated,
+NNSL-KDD,43,41 (detailed pre-binary category),pre_binary_attack_category,permuted_deep_feature_vector_only,held_out_target_test_only,12000.0,8000.0,29.0,0.90725,0.5486575633709265,0.0344827586206896,0.519,evaluated,
+NNSL-KDD,44,41 (detailed pre-binary category),pre_binary_attack_category,permuted_deep_feature_vector_only,held_out_target_test_only,12000.0,8000.0,29.0,0.901,0.5601534447079245,0.0344827586206896,0.52175,evaluated,
+NNSL-KDD,45,41 (detailed pre-binary category),pre_binary_attack_category,permuted_deep_feature_vector_only,held_out_target_test_only,12000.0,8000.0,30.0,0.909125,0.5750745107633797,0.0333333333333333,0.520875,evaluated,
+NNSL-KDD,46,41 (detailed pre-binary category),pre_binary_attack_category,permuted_deep_feature_vector_only,held_out_target_test_only,12000.0,8000.0,26.0,0.887375,0.531800917597497,0.0384615384615384,0.520625,evaluated,
+cicids2017_binary_balanced,42,NOT_AVAILABLE,not_available,,,,,,,,,,not_evaluated,No non-binary-equivalent detailed category or categorical attribute was available; no surrogate label was invented.
+cicids2017_binary_balanced,43,NOT_AVAILABLE,not_available,,,,,,,,,,not_evaluated,No non-binary-equivalent detailed category or categorical attribute was available; no surrogate label was invented.
+cicids2017_binary_balanced,44,NOT_AVAILABLE,not_available,,,,,,,,,,not_evaluated,No non-binary-equivalent detailed category or categorical attribute was available; no surrogate label was invented.
+cicids2017_binary_balanced,45,NOT_AVAILABLE,not_available,,,,,,,,,,not_evaluated,No non-binary-equivalent detailed category or categorical attribute was available; no surrogate label was invented.
+cicids2017_binary_balanced,46,NOT_AVAILABLE,not_available,,,,,,,,,,not_evaluated,No non-binary-equivalent detailed category or categorical attribute was available; no surrogate label was invented.
+train_test_network,42,type,dataset_column,permuted_deep_feature_vector_only,held_out_target_test_only,12000.0,8000.0,10.0,0.77375,0.70195106559732,0.1,0.219,evaluated,
+train_test_network,43,type,dataset_column,permuted_deep_feature_vector_only,held_out_target_test_only,12000.0,8000.0,10.0,0.802625,0.7308719252132336,0.1,0.22,evaluated,
+train_test_network,44,type,dataset_column,permuted_deep_feature_vector_only,held_out_target_test_only,12000.0,8000.0,10.0,0.82625,0.7554749386126416,0.1,0.22075,evaluated,
+train_test_network,45,type,dataset_column,permuted_deep_feature_vector_only,held_out_target_test_only,12000.0,8000.0,10.0,0.811,0.7361935014944647,0.1,0.220875,evaluated,
+train_test_network,46,type,dataset_column,permuted_deep_feature_vector_only,held_out_target_test_only,12000.0,8000.0,10.0,0.78425,0.7139258406419813,0.1,0.22025,evaluated,

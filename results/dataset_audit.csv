@@ -1,0 +1,5 @@
+dataset,original_rows,original_columns,after_duplicate_removal,duplicates_removed,missing_labels_removed,final_rows_for_model,feature_columns_before_scaling,all_nan_columns_removed,attribute_inference_target,attribute_inference_source,attribute_inference_classes,label_mapping
+cicids2017_binary_balanced,851388,53,851380,8,0,851380,52,0,NOT_AVAILABLE,not_available,0,"{""BENIGN/normal"": 0, ""all_attack_labels"": 1}"
+IoT Network Intrusion Dataset,625783,86,461696,164087,0,461696,69,10,Sub_Cat,dataset_column,9,"{""Anomaly"": 1, ""Normal"": 0}"
+NNSL-KDD,148517,44,147907,610,0,147907,121,4,41 (detailed pre-binary category),pre_binary_attack_category,40,"{""normal"": 0, ""all_non_normal_attack_types"": 1}"
+train_test_network,211043,44,190474,20569,0,190474,247,23,type,dataset_column,10,"{""0"": 0, ""1"": 1}"

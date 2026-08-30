@@ -1,0 +1,9 @@
+numpy
+pandas
+scikit-learn
+tensorflow
+cryptography
+psutil
+matplotlib
+seaborn
+requests

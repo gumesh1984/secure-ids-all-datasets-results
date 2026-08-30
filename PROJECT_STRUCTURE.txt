@@ -1,0 +1,26 @@
+Secure IDS reproducibility package
+==================================
+
+secure_ids_pipeline.py
+    Complete executable preprocessing, model-training, evaluation, privacy-
+    attack, ablation, security-processing, and result-packaging pipeline.
+
+experiment_config.py
+    Compact record of the reported hyperparameters and random seeds.
+
+requirements.txt
+    Python package requirements.
+
+README.md
+    Dataset preparation and local/Google Colab reproduction instructions.
+
+data/*.README.txt
+    Dataset placeholders. Raw datasets are intentionally not redistributed.
+
+results/
+    Directly viewable principal tables and confusion-matrix figures.
+
+reviewer_results_all_datasets.zip
+    Complete results archive, including all per-dataset/per-seed reviewer
+    reconstruction, membership-inference, attribute-inference, and ablation
+    experiment tables.

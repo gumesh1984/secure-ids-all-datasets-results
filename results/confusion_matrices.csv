@@ -1,0 +1,21 @@
+dataset,seed,TN,FP,FN,TP
+cicids2017_binary_balanced,42,125035,2578,1941,125842
+cicids2017_binary_balanced,43,125062,2484,2604,125244
+cicids2017_binary_balanced,44,125355,2374,2163,125523
+cicids2017_binary_balanced,45,125087,2581,4777,122957
+cicids2017_binary_balanced,46,125237,2455,2952,124803
+IoT Network Intrusion Dataset,42,11673,255,63,127067
+IoT Network Intrusion Dataset,43,11087,308,16,125810
+IoT Network Intrusion Dataset,44,11399,357,48,127277
+IoT Network Intrusion Dataset,45,10999,567,158,125258
+IoT Network Intrusion Dataset,46,11563,245,73,124453
+NNSL-KDD,42,23021,222,259,20871
+NNSL-KDD,43,22757,258,216,21130
+NNSL-KDD,44,22921,226,229,21004
+NNSL-KDD,45,22844,262,259,21001
+NNSL-KDD,46,22792,292,233,21056
+train_test_network,42,12298,197,151,44416
+train_test_network,43,12287,300,219,44399
+train_test_network,44,12403,220,180,44368
+train_test_network,45,12439,196,160,44407
+train_test_network,46,12384,188,167,44350

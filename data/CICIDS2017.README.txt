@@ -1,0 +1,4 @@
+Obtain CICIDS2017 from its original provider and place the prepared CSV in the
+dataset directory passed through --data-dir. Preserve the target column whose
+values distinguish BENIGN/normal traffic from attacks. A filename containing
+"cicids2017" activates the pipeline's dataset-specific label safeguards.

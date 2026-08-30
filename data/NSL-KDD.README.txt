@@ -1,0 +1,4 @@
+Obtain NSL/NNSL-KDD from its original provider and place the CSV in the dataset
+directory passed through --data-dir. For the supplied numeric-column layout,
+column 41 is the attack type and column 42 is the difficulty field. A filename
+containing "nsl-kdd" or "nnsl-kdd" activates the corresponding safeguards.
