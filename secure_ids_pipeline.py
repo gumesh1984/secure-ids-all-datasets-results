@@ -1234,6 +1234,112 @@ def _write_seed_experiment(rows, path):
     print(f"REVIEWER EXPERIMENT AUTOSAVE: {path}")
 
 
+# =============================================================================
+# ADD-ON: IN-PROCESS MULTI-NODE PERMISSIONED-LEDGER CONSENSUS SIMULATION
+# (Reviewer 2, Comment 6). This is an additional measurement only: it does
+# NOT alter the original single-node blockchain_time already computed above
+# (conventional_storage_s / blockchain_s / decryption_s remain untouched).
+# It reuses the SAME real per-record ciphertexts (encrypted_test) already
+# produced by the AES-GCM step for this dataset/seed, and reuses the EXACT
+# same chained-hash formula already used for the single-node ledger
+# (SHA256(i | payload_hash | prev_hash)), simply replicated across N
+# in-process "nodes" with a majority-vote consensus check per block, plus a
+# single node-failure/resynchronization scenario. It measures only the
+# computational cost of replication and consensus-comparison on one
+# machine; it does not model real network propagation delay or Byzantine
+# fault tolerance across physically distributed peers.
+# =============================================================================
+def _chained_hash_ledger_from_ciphertexts(ciphertexts, prev_hash="0" * 64, start_index=0):
+    hashes = []
+    for offset, ct in enumerate(ciphertexts):
+        i = start_index + offset
+        payload_hash = hashlib.sha256(ct).hexdigest()
+        block_string = f"{i}|{payload_hash}|{prev_hash}"
+        block_hash = hashlib.sha256(block_string.encode()).hexdigest()
+        hashes.append(block_hash)
+        prev_hash = block_hash
+    return hashes
+
+
+def run_multi_node_consensus_simulation(
+    encrypted_test, dataset_name, seed, node_counts=(1, 3, 5, 7), failure_node_count=5,
+):
+    """
+    encrypted_test: the SAME list of (nonce, ciphertext) tuples already
+    produced by this seed's AES-GCM encryption step (real data, not synthetic).
+    Returns a list of result rows ready to append to
+    RESULTS_DIR / "multi_node_consensus_results.csv".
+    """
+    ciphertexts = [ct for (_, ct) in encrypted_test]
+    rows = []
+
+    baseline_elapsed = None
+    for n_nodes in node_counts:
+        t0 = time.perf_counter()
+        node_chains = [
+            _chained_hash_ledger_from_ciphertexts(ciphertexts) for _ in range(n_nodes)
+        ]
+        consensus_failures = 0
+        for block_idx in range(len(ciphertexts)):
+            block_hashes = {node_chains[n][block_idx] for n in range(n_nodes)}
+            if len(block_hashes) != 1:
+                consensus_failures += 1
+        elapsed = time.perf_counter() - t0
+        if n_nodes == 1:
+            baseline_elapsed = elapsed
+        overhead_pct = (
+            100.0 * (elapsed - baseline_elapsed) / baseline_elapsed
+            if baseline_elapsed else 0.0
+        )
+        rows.append({
+            "dataset": dataset_name,
+            "seed": seed,
+            "scenario": "node_scaling",
+            "n_nodes": n_nodes,
+            "n_records": len(ciphertexts),
+            "elapsed_s": elapsed,
+            "overhead_pct_vs_1_node": overhead_pct,
+            "consensus_failures": consensus_failures,
+        })
+
+    # Node-failure / resynchronization scenario.
+    n_nodes = failure_node_count
+    fail_point = len(ciphertexts) // 2
+    t0 = time.perf_counter()
+    node_chains = []
+    for node_id in range(n_nodes):
+        if node_id == n_nodes - 1:
+            node_chains.append(_chained_hash_ledger_from_ciphertexts(ciphertexts[:fail_point]))
+        else:
+            node_chains.append(_chained_hash_ledger_from_ciphertexts(ciphertexts))
+    normal_elapsed = time.perf_counter() - t0
+
+    r0 = time.perf_counter()
+    checkpoint_hash = node_chains[-1][-1] if fail_point > 0 else "0" * 64
+    resynced_tail = _chained_hash_ledger_from_ciphertexts(
+        ciphertexts[fail_point:], prev_hash=checkpoint_hash, start_index=fail_point
+    )
+    node_chains[-1] = node_chains[-1] + resynced_tail
+    recovery_elapsed = time.perf_counter() - r0
+    consistent = node_chains[-1] == node_chains[0]
+
+    rows.append({
+        "dataset": dataset_name,
+        "seed": seed,
+        "scenario": "failure_recovery",
+        "n_nodes": n_nodes,
+        "n_records": len(ciphertexts),
+        "elapsed_s": normal_elapsed,
+        "recovery_elapsed_s": recovery_elapsed,
+        "recovery_pct_of_normal_run": (
+            100.0 * recovery_elapsed / normal_elapsed if normal_elapsed else np.nan
+        ),
+        "fail_point_block_index": fail_point,
+        "post_recovery_chain_consistent": consistent,
+    })
+    return rows
+
+
 def run_and_save_reviewer_experiments(
     results_dir, dataset_name, dataset_slug, seed,
     F_train, F_test, NF_train, NF_test, PF_train, PF_test,
@@ -1849,6 +1955,28 @@ def main(args=None):
                 "process_memory_mb": memory_mb,
                 "reconstruction_mae": reconstruction_error,
             }
+
+            # Multi-node consensus simulation is also a pure add-on measurement
+            # (Reviewer 2, Comment 6): it reuses the real per-record ciphertexts
+            # already produced above and does not modify baseline_runtime,
+            # blockchain_s, or any other value already stored in `row`.
+            try:
+                multi_node_rows = run_multi_node_consensus_simulation(
+                    encrypted_test=encrypted_test,
+                    dataset_name=dataset_name,
+                    seed=seed,
+                )
+                multi_node_path = RESULTS_DIR / "multi_node_consensus_results.csv"
+                multi_node_df = pd.DataFrame(multi_node_rows)
+                multi_node_df.to_csv(
+                    multi_node_path,
+                    mode="a" if multi_node_path.exists() else "w",
+                    header=not multi_node_path.exists(),
+                    index=False,
+                )
+                print(f"MULTI-NODE CONSENSUS SIMULATION AUTOSAVE: {multi_node_path}")
+            except Exception as exc:
+                print(f"WARNING: multi-node consensus simulation failed: {exc}")
 
             # Reviewer experiments are add-ons. The original pipeline above,
             # its model, predictions, timing variables, and published row are
